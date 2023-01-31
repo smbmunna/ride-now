@@ -1,0 +1,22 @@
+.nav-bar-container{
+    height: 60px;       
+}
+.navigation-items{  
+    font-family: sans-serif;  
+    text-decoration: none;
+    color: gray;          
+    padding:  15px; 
+    font-size: 20px;
+    /* font-weight: 700;      */
+    background: transparent;        
+    
+}
+
+.navigation-items:hover{
+    background-color: rgb(112, 105, 104);
+    color: white;    
+}
+
+.site-logo{
+    padding: 5px;
+}
