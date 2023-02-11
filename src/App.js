@@ -11,6 +11,7 @@ import Login from "./Components/Login/Login";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Destination from "./Components/Destination/Destination";
 import { createContext } from "react";
+import CreateUser from "./Components/CreateUser/CreateUser";
 
 //User Context
 export const userContext = createContext();
@@ -26,6 +27,7 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/destination' element={<PrivateRoute><Destination /></PrivateRoute>} />
           <Route path='/login' element={<Login />} />
+          <Route path='/newUser' element={<CreateUser/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

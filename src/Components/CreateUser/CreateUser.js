@@ -1,31 +1,31 @@
-import Header from '../Header/Header';
 import React, { useState, useContext } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-//Bootstrap Components
+import Header from '../Header/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-//Reading user context
-import { userContext } from '../../App';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 //Firebase
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import firebaseConfig from './firebase.config';
+import firebaseConfig from '../Login/firebase.config';
+import { userContext } from '../../App';
 firebase.initializeApp(firebaseConfig);
 
 
-
-
-
-const Login = () => {
+const CreateUser = () => {
     const [loggedInUser, setLoggedInUser] = useContext(userContext);
-    //setting User state
-    const [newUser, setNewUser] = useState(false);
+    //Setting user states
+    const [newUser, setNewUser] = useState(true);
     const [user, setUser] = useState({
         isSignedIn: false,
         displayName: '',
         photoURL: ''
     })
+
+    //For redirecting
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || "/";
 
     //Form validation
     const handleBlur = (e) => {
@@ -46,35 +46,10 @@ const Login = () => {
             setUser(newUserInfo);
             //console.log(user.password);
         }
-
-
     }
-
-    //For redirecting
-    const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from || "/";
-
-
-    //Google sign in 
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-    const handleGoogleSignIn = () => {
-        firebase.auth()
-            .signInWithPopup(googleProvider)
-            .then(result => {
-                const user = result.user;
-                setLoggedInUser(user);
-                navigate(from);
-            }).catch(error => {
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            })
-    }
-
-    //handle submit
-    const handleLogin = (e) => {
-        if (!newUser && user.email && user.password) {
-            firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+    const handleCreateAccount = (e) => {
+        if (newUser && user.email && user.password) {
+            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then((userCredential) => {
                     const user = userCredential.user;
                     setLoggedInUser(user);
@@ -86,28 +61,37 @@ const Login = () => {
                     console.log(errorMessage);
                 })
         }
+        if (!newUser && user.email && user.password) {
+            console.log('login user');
+        }
         e.preventDefault();
     }
+
 
     return (
         <div>
             <Header></Header>
-            <h3>Login</h3>
-            <Form onSubmit={handleLogin}>
+            <h3>Create New User</h3>
+            <Form onSubmit={handleCreateAccount}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Control required name='name' type="name" placeholder="Name" onBlur={handleBlur} />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Control required name='email' type="email" placeholder="Enter email" onBlur={handleBlur} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Control required name='password' type="password" placeholder="Password" onBlur={handleBlur} />
                 </Form.Group>
+                {/* <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Control required name='confirm-password' type="password" placeholder="Confirm Password" onBlur={handleBlur} />
+                </Form.Group> */}
                 <Button variant="primary" type='submit'>
-                    Login
+                    Create an Account
                 </Button>
+                <p>Already Have Account? <Link to='/login'>Login</Link></p>
             </Form>
-            <button onClick={handleGoogleSignIn}>Google sign in</button>
-            <Link to='/newUser'>New User</Link>
         </div>
     );
 };
 
-export default Login;
+export default CreateUser;
