@@ -15,22 +15,29 @@ import CreateUser from "./Components/CreateUser/CreateUser";
 
 //User Context
 export const userContext = createContext();
-
+//Transport Context to check the selected transport
+export const transportContext = createContext();
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
+  const [transport, setTransport]=useState();
   return (
     <userContext.Provider value={[loggedInUser, setLoggedInUser]}>
+      <transportContext.Provider value={[transport, setTransport]}>
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
-          <Route path='/destination' element={<PrivateRoute><Destination /></PrivateRoute>} />
+          
+            <Route path='/destination' element={<PrivateRoute><Destination /></PrivateRoute>} />
+          
+
           <Route path='/login' element={<Login />} />
-          <Route path='/newUser' element={<CreateUser/>} />
+          <Route path='/newUser' element={<CreateUser />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      </transportContext.Provider>
     </userContext.Provider>
   );
 }

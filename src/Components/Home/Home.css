@@ -1,0 +1,21 @@
+.main-container{
+    display: flex;
+}
+.card{
+    margin: 25px;
+}
+.card img{
+    height: 175px ;
+}
+
+.card-title{
+    text-decoration: none;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+.card:hover{
+    background: lightgray;
+    cursor: pointer;
+    transition: 0.5s;
+}

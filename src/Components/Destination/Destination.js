@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../Header/Header';
 
-const Destination = () => {
+const Destination = ({children}) => {
     return (
         <div>
             <Header></Header>

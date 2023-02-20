@@ -77,9 +77,11 @@ const Login = () => {
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                   // console.log(user);
                     setLoggedInUser(user);
-                    navigate(from);
-                    console.log(user.email, user.password);
+                    navigate(from, {replace: true});
+                    //console.log(user.email, user.password);
+                    //console.log(from);
                 })
                 .catch(error => {
                     const errorMessage = error.message;

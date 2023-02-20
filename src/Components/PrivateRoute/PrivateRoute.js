@@ -12,7 +12,7 @@ const PrivateRoute = ({children}) => {
 
     const location= useLocation();
     return (
-        loggedInUser.displayName ? children : <Navigate to='/login' state={{from: location}} />        
+        loggedInUser.email ? children : <Navigate to='/login' state={{from: location}} />        
     );
 };
 
