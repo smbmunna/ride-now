@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Container, Row, Col } from 'react-bootstrap';
 import { transportContext } from '../../App';
+import destination_data from '../../fakeData/destinations';
 
 const Destination = () => {
     //Reading chosen transport from state
@@ -13,6 +14,8 @@ const Destination = () => {
         e.preventDefault();
     }
 
+    const destinations= [...destination_data];
+    console.log(destinations);
 
     return (
         <div>
