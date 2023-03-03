@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { transportContext } from '../../App';
 
 
 const Transport = (props) => {
     //Reading Transport State from Context
+    const [transport, setTransport]= useContext(transportContext);
+    const { id, vehicle, image } = props.vehicle;
     
-    const { id, transport, image } = props.transport;
     const handleClick = () => {
-        console.log('handle click');
+        setTransport(vehicle);                              //Storing Chosen Transport in the state. 
     }
     return (
         <div>
@@ -16,7 +18,7 @@ const Transport = (props) => {
                 <Card onClick={handleClick} style={{ width: '18rem' }} className='card'>
                     <Card.Img variant="top" src={image} />
                     <Card.Body>
-                        <Card.Title className='card-title'>{transport}</Card.Title>
+                        <Card.Title className='card-title'>{vehicle}</Card.Title>
                     </Card.Body>
                 </Card>
             </Link>

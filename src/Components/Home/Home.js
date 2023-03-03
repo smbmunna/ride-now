@@ -12,7 +12,7 @@ const Home = () => {
 
     //Loading Vehicle data from fakedata
     const vehicles = [...vehicles_data];
-
+        //console.log(vehicles);
     return (
         <div>
             <Header />
@@ -20,7 +20,7 @@ const Home = () => {
                 {/* <Link to='/destination/bike'> */}
 
                 {
-                    vehicles.map(vehicle => <Transport key={vehicle.id} transport={vehicle}></Transport>)
+                    vehicles.map(vehicle => <Transport key={vehicle.id} vehicle={vehicle}></Transport>)
                 }
                 {/* </Link> */}
 
