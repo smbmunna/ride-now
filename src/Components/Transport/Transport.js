@@ -10,7 +10,10 @@ const Transport = (props) => {
     const { id, vehicle, image } = props.vehicle;
     
     const handleClick = () => {
-        setTransport(vehicle);                              //Storing Chosen Transport in the state. 
+        setTransport({
+            chosenVehicle: vehicle,
+            vehiclePicture: image
+        })
     }
     return (
         <div>

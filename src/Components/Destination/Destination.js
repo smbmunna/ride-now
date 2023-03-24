@@ -1,51 +1,82 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Header from '../Header/Header';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { transportContext } from '../../App';
 import destination_data from '../../fakeData/destinations';
+import SearchForm from '../SearchForm/SearchForm';
+import SearchResult from '../SearchResult/SearchResult';
 
 const Destination = () => {
     //Reading chosen transport from state
-    const [transport, setTransport]= useContext(transportContext);
-    const handleSubmit=(e)=>{
-        console.log('hello')
+    const [transport, setTransport] = useContext(transportContext);
+    
+    console.log(transport);
+    //Reading Destination data from fake data
+    const destinations = [...destination_data];
+
+    //Storing From / To location input in a state; 
+    const [input, setInput] = useState({
+        from: '',
+        to: '',
+        date: ''
+    })
+
+    //Storing Search Result in a State
+    //const [result, setResult] = useState([]);
+    const [finalResult, setFinalResult]= useState([]);
+
+    //States for showing and managing search results and search form
+    const [searchForm, setSearchForm] = useState(true);
+    const [searchResult, setSearchResult] = useState(false);
+
+    //Handle Blur for validations
+    const handleBlur = e => {
         e.preventDefault();
+        //const from= e.target.value; 
+        if (e.target.name == 'from') {
+            input.from = e.target.value;
+        }
+        if (e.target.name == 'to') {
+            input.to = e.target.value;
+        }
+        if (e.target.name == 'date') {
+            input.date = e.target.value;
+        }
+        //console.log(input);
+        //console.log(transport);
     }
 
-    const destinations= [...destination_data];
-    console.log(destinations);
+
+    //Handle search results
+    const handleSubmit = (e) => {
+        //const finalResult = [];
+        
+        if (input.to && input.from && input.date) {
+            destinations.map((d) => {
+                if (d.vehicle == transport.chosenVehicle) {
+                    finalResult.push(d);
+                    //result.push(d);
+
+                    //setResult([...finalResult]);
+                }
+            })
+            setSearchForm(false);
+            setSearchResult(true);
+            //console.log('Type of Finalresult: ', typeof(finalResult), '<br> type of result: ', typeof(result));
+            //console.log(finalResult);
+            setFinalResult(finalResult);
+            //console.log(finalResult);
+        }
+        e.preventDefault();
+    }
 
     return (
         <div>
             <Header></Header>
+
             <Container>
-                <Row>
-                    <Col>
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Pick From</Form.Label>
-                                <Form.Control name="from" placeholder="From Destination" />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Pick To</Form.Label>
-                                <Form.Control name="to" placeholder="To Destination" />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Date</Form.Label>
-                                <Form.Control type='date' name="date" />
-                            </Form.Group>
-                            <Button variant="warning" type='submit'>
-                                Search
-                            </Button>
-                        </Form>
-                    </Col>
-                    <Col>
-                        <h3>Map Section</h3>
-                        <img src='https://cdn.road.cc/sites/default/files/styles/main_width/public/google-maps-july-2022-update.jpg'></img>
-                    </Col>
-                </Row>
+                {searchForm ? <SearchForm handleBlur={handleBlur} handleSubmit={handleSubmit}></SearchForm> : null}
+                {searchResult ? <SearchResult finalResult={finalResult} input={input} vehicleImage={transport.vehiclePicture}></SearchResult> : null}
             </Container>
         </div>
     );

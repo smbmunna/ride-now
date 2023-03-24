@@ -1,0 +1,56 @@
+h3{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.vehicle-name{
+    margin-top: 15px;
+}
+
+.vehicle-img img{
+    height: 50px; 
+    width: 50px; 
+}
+.people-img img{
+    margin-top: 15px;
+    height: 25px; 
+    width: 25px; 
+    
+}
+.test3{
+    margin-top: 15px;
+}
+
+
+.card-container{
+    background-color: rgba(211, 211, 211, 0.603);
+    height: 100%;
+}
+
+.result-container{
+    background-color:lightgreen;
+    margin: 8px;
+    border-radius: 10px;
+}
+.result-container:hover{
+    background-color: #fff 
+}
+.card-heading{
+    background-color: rgba(211, 211, 211, 0.603);
+    border-radius: 10px;
+    display: flex;
+    
+}
+.card-heading h5{
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.678);
+    margin: 10px;
+    padding-left: 45px;
+    
+}
+
+.card-heading img{
+    height: 45px;
+    width: 60px; 
+    margin-left: 20px;
+}

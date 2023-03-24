@@ -1,19 +1,19 @@
 const vehicles_data=[{
     "id": 1,
-    "vehicle": "Bike",
-    "image": "https://i.ibb.co/YjnL6Yn/580b585b2edbce24c47b2cfc.png"
+    "vehicle": "bike",    
+    "image": "https://i.ibb.co/YdRTWjP/bike.png"
   }, {
     "id": 2,
-    "vehicle": "Train",
-    "image": "https://i.ibb.co/N1hqzsK/train.png"
+    "vehicle": "train",
+    "image": "https://i.ibb.co/fFWYhp9/train.png"
   }, {
     "id": 3,
-    "vehicle": "Car",
-    "image": "https://i.ibb.co/X5yndZL/car2.png"
+    "vehicle": "car",
+    "image": "https://i.ibb.co/85spFpx/car.png"
   }, {
     "id": 4,
-    "vehicle": "Bus",
-    "image": "https://i.ibb.co/f8sqhqn/bus.png"
+    "vehicle": "bus",
+    "image": "https://i.ibb.co/nzTb8Wf/bus.png"
   }]
 
   export default vehicles_data; 

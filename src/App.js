@@ -20,7 +20,10 @@ export const transportContext = createContext();
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
-  const [transport, setTransport]=useState();
+  const [transport, setTransport]=useState({
+    chosenVehicle: '',
+    vehiclePicture: ''
+  });
   return (
     <userContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <transportContext.Provider value={[transport, setTransport]}>
