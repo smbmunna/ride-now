@@ -6,6 +6,7 @@ import destination_data from '../../fakeData/destinations';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResult from '../SearchResult/SearchResult';
 
+
 const Destination = () => {
     //Reading chosen transport from state
     const [transport, setTransport] = useContext(transportContext);

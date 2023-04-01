@@ -4,6 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './SearchResult.css';
 import { Container } from 'react-bootstrap';
+import { ReactBingmaps } from 'react-bingmaps';
+
 
 const SearchResult = (props) => {
     const { finalResult, input, vehicleImage } = props;
@@ -40,7 +42,12 @@ const SearchResult = (props) => {
                 </Col>
                 <Col>
                     <h3>Map Section</h3>
-                    <img src='https://cdn.road.cc/sites/default/files/styles/main_width/public/google-maps-july-2022-update.jpg'></img>
+                    {/* <img src='https://cdn.road.cc/sites/default/files/styles/main_width/public/google-maps-july-2022-update.jpg'></img> */}
+                    <ReactBingmaps
+                        bingmapKey="Algjh_SGEx6U5ELo38gXNsJYCOTV2_PltcJbkwkYd8Ch1f02CVIsdsh6Rxx2PpFI"
+                        center={[13.0827, 80.2707]}
+                    >
+                    </ReactBingmaps>
                 </Col>
             </Row>
 

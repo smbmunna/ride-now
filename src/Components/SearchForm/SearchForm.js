@@ -2,10 +2,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col } from 'react-bootstrap';
+import ReactBingmaps from 'react-bingmaps/lib/components/ReactBingmaps/ReactBingmaps';
 
 
 const SearchForm = (props) => {
-    const {handleBlur,handleSubmit}= props;
+    const { handleBlur, handleSubmit } = props;
     return (
         <div>
             <Row>
@@ -30,7 +31,11 @@ const SearchForm = (props) => {
                 </Col>
                 <Col>
                     <h3>Map Section</h3>
-                    <img src='https://cdn.road.cc/sites/default/files/styles/main_width/public/google-maps-july-2022-update.jpg'></img>
+                    <ReactBingmaps
+                        bingmapKey="Algjh_SGEx6U5ELo38gXNsJYCOTV2_PltcJbkwkYd8Ch1f02CVIsdsh6Rxx2PpFI"
+                        center={[13.0827, 80.2707]}
+                    >
+                    </ReactBingmaps>
                 </Col>
             </Row>
         </div>
