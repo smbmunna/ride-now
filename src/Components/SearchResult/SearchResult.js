@@ -10,7 +10,7 @@ import { ReactBingmaps } from 'react-bingmaps';
 const SearchResult = (props) => {
     const { finalResult, input, vehicleImage } = props;
 
-    console.log(finalResult);
+    //console.log(finalResult);
 
     return (
         <div>

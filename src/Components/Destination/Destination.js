@@ -11,7 +11,7 @@ const Destination = () => {
     //Reading chosen transport from state
     const [transport, setTransport] = useContext(transportContext);
     
-    console.log(transport);
+    //console.log(transport);
     //Reading Destination data from fake data
     const destinations = [...destination_data];
 
@@ -66,6 +66,7 @@ const Destination = () => {
             //console.log('Type of Finalresult: ', typeof(finalResult), '<br> type of result: ', typeof(result));
             //console.log(finalResult);
             setFinalResult(finalResult);
+            //console.log(finalResult);
             //console.log(finalResult);
         }
         e.preventDefault();

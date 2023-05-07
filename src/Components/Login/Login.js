@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 //Reading user context
-import { userContext } from '../../App';
+import { loggedInUserContext, userContext } from '../../App';
 //Firebase
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -18,14 +18,15 @@ firebase.initializeApp(firebaseConfig);
 
 
 const Login = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(userContext);
+    const [loggedInUser, setLoggedInUser] = useContext(loggedInUserContext);
+    const [user, setUser]= useContext(userContext);
     //setting User state
     const [newUser, setNewUser] = useState(false);
-    const [user, setUser] = useState({
-        isSignedIn: false,
-        displayName: '',
-        photoURL: ''
-    })
+    // const [user, setUser] = useState({
+    //     isSignedIn: false,
+    //     //displayName: '',
+    //     photoURL: ''
+    // })
 
     //Form validation
     const handleBlur = (e) => {
@@ -65,23 +66,26 @@ const Login = () => {
                 const user = result.user;
                 setLoggedInUser(user);
                 navigate(from);
+               // console.log(user.displayName);
             }).catch(error => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
             })
     }
 
-    //handle submit
+    //handle login
     const handleLogin = (e) => {
         if (!newUser && user.email && user.password) {
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
                 .then((userCredential) => {
-                    const user = userCredential.user;
-                   // console.log(user);
+                    //const user = userCredential.user;
+                    //console.log(user);
                     setLoggedInUser(user);
                     navigate(from, {replace: true});
+                    console.log(user);
                     //console.log(user.email, user.password);
-                    //console.log(from);
+                   // console.log(user);
+                    
                 })
                 .catch(error => {
                     const errorMessage = error.message;

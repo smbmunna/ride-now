@@ -8,19 +8,20 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import firebaseConfig from '../Login/firebase.config';
-import { userContext } from '../../App';
+import { loggedInUserContext, userContext } from '../../App';
 firebase.initializeApp(firebaseConfig);
 
 
 const CreateUser = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(userContext);
+    const [loggedInUser, setLoggedInUser] = useContext(loggedInUserContext);
     //Setting user states
     const [newUser, setNewUser] = useState(true);
-    const [user, setUser] = useState({
-        isSignedIn: false,
-        displayName: '',
-        photoURL: ''
-    })
+    // const [user, setUser] = useState({
+    //     isSignedIn: false,
+    //     //displayName: '',
+    //     photoURL: ''
+    // })
+    const[user, setUser]= useContext(userContext);
 
     //For redirecting
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ const CreateUser = () => {
             let newUserInfo = { ...user };
             newUserInfo[e.target.name] = e.target.value;
             setUser(newUserInfo);
-            //console.log(user.password);
+            //console.log(user);
         }
     }
     const handleCreateAccount = (e) => {
@@ -52,14 +53,19 @@ const CreateUser = () => {
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    user.updateProfile({displayName:'hardcoded name'}); 
+                    //setUser(user);
                     setLoggedInUser(user);
-                    navigate(from);
-                    console.log(user.email, user.password);
+                    console.log(user);
+                    console.log(loggedInUser)
+                    navigate(from);                   
                 })
                 .catch(error => {
                     const errorMessage = error.message;
                     console.log(errorMessage);
                 })
+            //console.log(user);
+            
         }
         if (!newUser && user.email && user.password) {
             console.log('login user');
@@ -74,7 +80,7 @@ const CreateUser = () => {
             <h3>Create New User</h3>
             <Form onSubmit={handleCreateAccount}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control required name='name' type="name" placeholder="Name" onBlur={handleBlur} />
+                    <Form.Control required name='displayName' type="name" placeholder="Name" onBlur={handleBlur} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Control required name='email' type="email" placeholder="Enter email" onBlur={handleBlur} />
