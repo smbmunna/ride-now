@@ -9,6 +9,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import firebaseConfig from '../Login/firebase.config';
 import { loggedInUserContext, userContext } from '../../App';
+import { Container, Row, Col } from 'react-bootstrap';
 firebase.initializeApp(firebaseConfig);
 
 
@@ -21,7 +22,7 @@ const CreateUser = () => {
     //     //displayName: '',
     //     photoURL: ''
     // })
-    const[user, setUser]= useContext(userContext);
+    const [user, setUser] = useContext(userContext);
 
     //For redirecting
     const navigate = useNavigate();
@@ -53,19 +54,19 @@ const CreateUser = () => {
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    user.updateProfile({displayName:'hardcoded name'}); 
+                    user.updateProfile({ displayName: 'hardcoded name' });
                     //setUser(user);
                     setLoggedInUser(user);
                     console.log(user);
                     console.log(loggedInUser)
-                    navigate(from);                   
+                    navigate(from);
                 })
                 .catch(error => {
                     const errorMessage = error.message;
                     console.log(errorMessage);
                 })
             //console.log(user);
-            
+
         }
         if (!newUser && user.email && user.password) {
             console.log('login user');
@@ -77,25 +78,29 @@ const CreateUser = () => {
     return (
         <div>
             <Header></Header>
-            <h3>Create New User</h3>
-            <Form onSubmit={handleCreateAccount}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control required name='displayName' type="name" placeholder="Name" onBlur={handleBlur} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control required name='email' type="email" placeholder="Enter email" onBlur={handleBlur} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control required name='password' type="password" placeholder="Password" onBlur={handleBlur} />
-                </Form.Group>
-                {/* <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control required name='confirm-password' type="password" placeholder="Confirm Password" onBlur={handleBlur} />
-                </Form.Group> */}
-                <Button variant="primary" type='submit'>
-                    Create an Account
-                </Button>
-                <p>Already Have Account? <Link to='/login'>Login</Link></p>
-            </Form>
+            <Container>
+                <Row className='justify-content-md-center'>
+                    <Col xs="12" md="7" xl="6">
+                        <h3 className='text-center'>Create New User</h3>
+                        <Form onSubmit={handleCreateAccount}>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Control required name='displayName' type="name" placeholder="Name" onBlur={handleBlur} />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Control required name='email' type="email" placeholder="Enter email" onBlur={handleBlur} />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Control required name='password' type="password" placeholder="Password" onBlur={handleBlur} />
+                            </Form.Group>
+                            <div className='text-center'>
+                                <Button variant="primary" type='submit'>Create an Account</Button>
+                            </div>
+                            <p className='text-center'>Already Have Account? <Link to='/login'>Login</Link></p>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+
         </div>
     );
 };

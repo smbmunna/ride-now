@@ -1,0 +1,17 @@
+.google-btn{
+      color: green;  
+      cursor: pointer;  
+      border-radius: 5px;    
+      border: none;
+      margin: 3px;
+      
+}
+
+.fb-btn{
+    color: #385898;  
+    cursor: pointer;  
+    border-radius: 5px;    
+    border: none;
+    margin: 3px;
+    
+}
