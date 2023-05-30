@@ -15,13 +15,11 @@ firebase.initializeApp(firebaseConfig);
 
 const CreateUser = () => {
     const [loggedInUser, setLoggedInUser] = useContext(loggedInUserContext);
+    //for showing display name
+    const [displayName, setDisplayName]= useState('');
     //Setting user states
-    const [newUser, setNewUser] = useState(true);
-    // const [user, setUser] = useState({
-    //     isSignedIn: false,
-    //     //displayName: '',
-    //     photoURL: ''
-    // })
+    const [newUser] = useState(true);
+    
     const [user, setUser] = useContext(userContext);
 
     //For redirecting
@@ -32,19 +30,21 @@ const CreateUser = () => {
     //Form validation
     const handleBlur = (e) => {
         let isFormValid = true;
-        if (e.target.name == 'email') {
+        
+        if (e.target.name === 'email') {
             isFormValid = /^\S+@\S+\.\S+$/.test(e.target.value);
             // console.log(isEmailValid)
         }
-        if (e.target.name == 'password') {
+        if (e.target.name === 'password') {
             const passHas5Chars = e.target.value.length > 4;
             const passHasNumber = /(?=.*[0-9])/.test(e.target.value);
             isFormValid = passHas5Chars && passHasNumber;
         }
-
+        
         if (isFormValid) {
             let newUserInfo = { ...user };
-            newUserInfo[e.target.name] = e.target.value;
+            newUserInfo[e.target.name] = e.target.value;//setting display in user state
+            setDisplayName(e.target.displayName);
             setUser(newUserInfo);
             //console.log(user);
         }
@@ -53,20 +53,19 @@ const CreateUser = () => {
         if (newUser && user.email && user.password) {
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then((userCredential) => {
-                    const user = userCredential.user;
-                    user.updateProfile({ displayName: 'hardcoded name' });
-                    //setUser(user);
-                    setLoggedInUser(user);
-                    console.log(user);
-                    console.log(loggedInUser)
-                    navigate(from);
+                    const googleUser = userCredential.user;
+                    
+                    googleUser.updateProfile({ displayName: user.displayName});
+                    setLoggedInUser({
+                        email:user.email, 
+                        displayName: user.displayName,
+                    })
+                    navigate(from, { replace: true });
                 })
                 .catch(error => {
                     const errorMessage = error.message;
                     console.log(errorMessage);
                 })
-            //console.log(user);
-
         }
         if (!newUser && user.email && user.password) {
             console.log('login user');

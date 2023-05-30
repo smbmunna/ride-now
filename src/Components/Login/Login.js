@@ -66,7 +66,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setLoggedInUser(user);
-                navigate(from);
+                navigate(from);                
             }).catch(error => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
@@ -94,9 +94,9 @@ const Login = () => {
         if (!newUser && user.email && user.password) {
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
                 .then((userCredential) => {
-                    setLoggedInUser(user);
+                    setLoggedInUser(userCredential.user);
                     navigate(from, { replace: true });
-                    console.log(user);
+                    //console.log(userCredential);
                 })
                 .catch(error => {
                     const errorMessage = error.message;

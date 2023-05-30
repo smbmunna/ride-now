@@ -1,29 +1,37 @@
 .nav-bar-container{
-    height: 60px;       
+    height: 60px;            
+}
+.main-navbar{
+    background-color: transparent;
+    margin-bottom: 40px;
 }
 .navigation-items{  
     font-family: sans-serif;  
     text-decoration: none;
-    color: gray;          
-    padding:  15px; 
+    color: white;        
+    padding:  10px; 
     font-size: 20px;
-    /* font-weight: 700;      */
-    background: transparent;        
+     font-weight: 500;      
+    
     
 }
 
 .navigation-items:hover{
-    background-color: rgb(112, 105, 104);
-    color: white;    
+    background-color: rgb(194, 189, 189);    
+    color: black;   
+    border-radius: 5px;    
+    transition: 0.3s;
 }
 
 .site-logo{
     padding: 5px;
 }
 
+.nav-dropdown{
+    text-decoration: none;
+    color: red;
+}
 
-.test{
-    margin-top: 15px;
-    width: 20%;
-    
+.dropdown-title{
+    font-weight: 500;
 }
